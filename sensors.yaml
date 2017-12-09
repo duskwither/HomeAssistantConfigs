@@ -1,0 +1,84 @@
+## Weather Icon ################################
+- platform: yr
+  name: 'Weather'
+
+## Total power usage (youless)##################
+#- platform: rest
+#  resource: http://192.168.0.76/a?f=j
+#  value_template: '{{ value_json.pwr }}'
+#  method: GET
+#  name: 'Totaal'
+#  unit_of_measurement: "W"
+
+## Utility room ################################  
+- platform: mqtt
+  state_topic: "tele/meterkast/ENERGY"
+  name: 'Meterkast'
+  unit_of_measurement: 'W'
+  value_template: '{{ value_json.Power }}'
+
+## Computer power usage ######################## 
+- platform: mqtt
+  state_topic: "tele/computers/ENERGY"
+  name: 'Computers'
+  unit_of_measurement: 'W'
+  value_template: '{{ value_json.Power }}'
+
+## Mediacenter power usage #####################  
+- platform: mqtt
+  state_topic: "tele/mediacenter/ENERGY"
+  name: 'Mediacenter'
+  unit_of_measurement: 'W'
+  value_template: '{{ value_json.Power }}'
+
+## Livingroom temperature ######################  
+- platform: onewire
+  names:
+    28-800000011344: Livingroom
+
+## NAS ####################################
+- platform: !secret nas
+  host: !secret nas_ip
+  username: !secret nas_username
+  password: !secret nas_pw
+  monitored_conditions:
+    - cpu_total_load
+    - memory_real_usage
+    - network_up
+    - disk_temp
+    - volume_percentage_used
+    
+## Router stats ################################
+- platform: fritzbox_netmonitor
+  host: !secret router_ip
+
+- platform: template  
+  sensors:
+    externalip:
+      friendly_name: "External IP"
+      entity_id: sensor.fritz_netmonitor
+      value_template: "{{ states.sensor.fritz_netmonitor.attributes.external_ip }}"
+  
+- platform: template  
+  sensors:
+    uptime:
+      friendly_name: "Uptime"
+      entity_id: sensor.fritz_netmonitor
+      unit_of_measurement: 'days'
+      value_template: "{{ (states.sensor.fritz_netmonitor.attributes.uptime | float / 86400) | round(0) }}"
+      
+- platform: template  
+  sensors:
+    downloaded:
+      friendly_name: "Downloaded"
+      entity_id: sensor.fritz_netmonitor
+      unit_of_measurement: 'MB'
+      value_template: "{{ (states.sensor.fritz_netmonitor.attributes.bytes_received | float / 1000000) | round(1) }}"
+      
+- platform: template  
+  sensors:
+    uploaded:
+      friendly_name: "Uploaded"
+      entity_id: sensor.fritz_netmonitor
+      unit_of_measurement: 'MB'
+      value_template: "{{ (states.sensor.fritz_netmonitor.attributes.bytes_sent | float / 1000000) | round(1) }}"

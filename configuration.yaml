@@ -1,0 +1,120 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude_home
+  longitude: !secret longitude_home
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 6
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Amsterdam
+  # Customization file
+  customize: !include customize.yaml
+
+logger:
+  default: critical
+  logs:
+    homeassistant.components.http.ban: warning
+  
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  api_password: !secret http_password
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Text to speech
+tts:
+  - platform: google
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+sensor: !include sensors.yaml
+switch: !include switches.yaml
+
+influxdb:
+  host: !secret nas_hostname
+  port: 8086
+  database: home_assistant
+
+mqtt:
+  broker: !secret mqtt_ip_address
+  discovery: true
+
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+    - key: !secret xiaomi_hub_key
+
+group:
+  default_view:
+    view: yes
+    icon: mdi:home
+    entities:
+      - group.woonkamer
+      - group.meterkast
+  Woonkamer:
+    name: Woonkamer
+    control: hidden
+    entities:
+      - switch.mediacenter
+      - sensor.mediacenter
+      - switch.computers
+      - sensor.computers
+      - sensor.livingroom_temperature
+  Meterkast:
+    name: Meterkast
+    entities:
+      - sensor.temperature_158d0001ab24f9
+      - sensor.humidity_158d0001ab24f9
+      - binary_sensor.door_window_sensor_158d0001dbd397
+  Nas:
+    view: yes
+    name: NAS
+    entities:
+      - sensor.cpu_load_total
+      - sensor.memory_usage_real
+      - sensor.network_up
+      - sensor.temperature_sdb
+      - sensor.temperature_sdc
+      - sensor.temperature_sdd
+      - sensor.temperature_sde
+      - sensor.volume_used_volume_2
+      - sensor.volume_used_volume_3
+  Netwerk:
+    view: yes
+    name: Netwerk
+    entities:
+      - sensor.fritz_netmonitor
+      - sensor.uptime
+      - sensor.externalip
+      - sensor.downloaded
+      - sensor.uploaded

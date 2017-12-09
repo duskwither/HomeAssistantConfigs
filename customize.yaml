@@ -1,0 +1,23 @@
+## Meterkast temperature sensor
+sensor.temperature_158d0001ab24f9:
+  friendly_name: Temperature
+
+## Meterkast door sensor
+binary_sensor.door_window_sensor_158d0001dbd397:
+  friendly_name: Door
+
+## Meterkast humidity sensor
+sensor.humidity_158d0001ab24f9:
+  friendly_name: Humidity
+
+## Livingroom temperature sensor  
+sensor.livingroom_temperature:
+  friendly_name: Temperature
+
+## Switch Computers  
+switch.computers:
+  icon: mdi:power-plug
+
+## Switch Mediacenter  
+switch.mediacenter:
+  icon: mdi:power-plug
