@@ -2,14 +2,6 @@
 - platform: yr
   name: 'Weather'
 
-## Total power usage (youless)##################
-#- platform: rest
-#  resource: http://192.168.0.76/a?f=j
-#  value_template: '{{ value_json.pwr }}'
-#  method: GET
-#  name: 'Totaal'
-#  unit_of_measurement: "W"
-
 ## Utility room ################################  
 - platform: mqtt
   state_topic: "tele/meterkast/ENERGY"
@@ -45,9 +37,10 @@
     - cpu_total_load
     - memory_real_usage
     - network_up
+    - network_down
     - disk_temp
     - volume_percentage_used
-    
+
 ## Router stats ################################
 - platform: fritzbox_netmonitor
   host: !secret router_ip
@@ -72,6 +65,7 @@
     downloaded:
       friendly_name: "Downloaded"
       entity_id: sensor.fritz_netmonitor
+      icon_template: mdi:download-network
       unit_of_measurement: 'MB'
       value_template: "{{ (states.sensor.fritz_netmonitor.attributes.bytes_received | float / 1000000) | round(1) }}"
       
@@ -80,5 +74,6 @@
     uploaded:
       friendly_name: "Uploaded"
       entity_id: sensor.fritz_netmonitor
+      icon_template: mdi:upload-network
       unit_of_measurement: 'MB'
       value_template: "{{ (states.sensor.fritz_netmonitor.attributes.bytes_sent | float / 1000000) | round(1) }}"

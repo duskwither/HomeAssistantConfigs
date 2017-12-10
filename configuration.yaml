@@ -75,12 +75,25 @@ xiaomi_aqara:
     - key: !secret xiaomi_hub_key
 
 group:
+####VIEWS
   default_view:
     view: yes
     icon: mdi:home
     entities:
       - group.woonkamer
       - group.meterkast
+  Nas_view:
+    view: yes
+    name: Synology
+    entities:
+      - group.nas
+      - group.meterkast
+  Netwerk_view:
+    view: yes
+    name: Netwerk
+    entities:
+    - group.netwerk
+####GROUPS      
   Woonkamer:
     name: Woonkamer
     control: hidden
@@ -97,12 +110,12 @@ group:
       - sensor.humidity_158d0001ab24f9
       - binary_sensor.door_window_sensor_158d0001dbd397
   Nas:
-    view: yes
-    name: NAS
+    name: Synology
     entities:
       - sensor.cpu_load_total
       - sensor.memory_usage_real
       - sensor.network_up
+      - sensor.network_down
       - sensor.temperature_sdb
       - sensor.temperature_sdc
       - sensor.temperature_sdd
@@ -110,7 +123,6 @@ group:
       - sensor.volume_used_volume_2
       - sensor.volume_used_volume_3
   Netwerk:
-    view: yes
     name: Netwerk
     entities:
       - sensor.fritz_netmonitor

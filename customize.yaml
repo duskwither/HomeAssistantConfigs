@@ -9,6 +9,7 @@ binary_sensor.door_window_sensor_158d0001dbd397:
 ## Meterkast humidity sensor
 sensor.humidity_158d0001ab24f9:
   friendly_name: Humidity
+  icon: mdi:water-percent
 
 ## Livingroom temperature sensor  
 sensor.livingroom_temperature:
@@ -21,3 +22,25 @@ switch.computers:
 ## Switch Mediacenter  
 switch.mediacenter:
   icon: mdi:power-plug
+
+## NAS volume used
+sensor.volume_used_volume_2:
+  friendly_name: SSD Volume Used
+sensor.volume_used_volume_3:
+  friendly_name: HDD Volume Used
+  
+## Fritz rename
+sensor.fritz_netmonitor:
+  friendly_name: Modem
+  
+## NAS upload/download
+sensor.network_up:
+  icon: mdi:upload-network
+sensor.network_down:
+  icon: mdi:download-network
+
+## Power usage
+sensor.computers:
+  icon: mdi:weather-lightning
+sensor.mediacenter:
+  icon: mdi:weather-lightning
