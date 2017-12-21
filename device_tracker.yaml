@@ -1,0 +1,9 @@
+- platform: ping
+  hosts:
+    Nils: !secret nils
+    Tiia: !secret tiia
+    
+- platform: fritz
+  host: !secret router_ip
+  username: !secret router_username
+  password: !secret router_password

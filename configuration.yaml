@@ -13,6 +13,7 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
+## Logging Settings ##
 logger:
   default: critical
   logs:
@@ -26,6 +27,9 @@ frontend:
 
 # Enables configuration UI
 config:
+
+# Cloud service
+#cloud:
 
 http:
   api_password: !secret http_password
@@ -55,45 +59,56 @@ sun:
 tts:
   - platform: google
 
+## Config Includes ##
 automation: !include automations.yaml
 script: !include scripts.yaml
 sensor: !include sensors.yaml
 switch: !include switches.yaml
+device_tracker: !include device_tracker.yaml
+binary_sensor: !include binary_sensor.yaml
 
+## InfluxDB database ##
 influxdb:
   host: !secret nas_hostname
   port: 8086
   database: home_assistant
 
+## MQTT Broker ##  
 mqtt:
   broker: !secret mqtt_ip_address
   discovery: true
 
+## Xiaomi Bridge ##
 xiaomi_aqara:
   discovery_retry: 5
   gateways:
     - key: !secret xiaomi_hub_key
 
+## Digital Ocean VPS ##    
+digital_ocean:
+  access_token: !secret digital_ocean_api
+
 group:
-####VIEWS
+## VIEWS ##
   default_view:
     view: yes
     icon: mdi:home
     entities:
       - group.woonkamer
       - group.meterkast
+      - group.sonarr
+      - group.radarr
   Nas_view:
     view: yes
     name: Synology
     entities:
       - group.nas
-      - group.meterkast
   Netwerk_view:
     view: yes
     name: Netwerk
     entities:
-    - group.netwerk
-####GROUPS      
+    - group.network
+## GROUPS ##      
   Woonkamer:
     name: Woonkamer
     control: hidden
@@ -122,7 +137,7 @@ group:
       - sensor.temperature_sde
       - sensor.volume_used_volume_2
       - sensor.volume_used_volume_3
-  Netwerk:
+  Network:
     name: Netwerk
     entities:
       - sensor.fritz_netmonitor
@@ -130,3 +145,9 @@ group:
       - sensor.externalip
       - sensor.downloaded
       - sensor.uploaded
+  Sonarr:
+    name: Upcoming Series
+      - sensor.sonarr_upcoming
+  Radarr:
+    name: Upcoming Movies
+      - sensor.radarr_upcoming

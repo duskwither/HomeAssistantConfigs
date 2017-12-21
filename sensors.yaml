@@ -77,3 +77,25 @@
       icon_template: mdi:upload-network
       unit_of_measurement: 'MB'
       value_template: "{{ (states.sensor.fritz_netmonitor.attributes.bytes_sent | float / 1000000) | round(1) }}"
+
+## Radarr ##      
+- platform: radarr
+  api_key: !secret radarr_api
+  host: !secret nas_hostname
+  port: 7878
+  urlbase: /radarr
+  days: 7
+  monitored_conditions:
+    - upcoming
+    - status
+
+## Sonarr ##    
+- platform: sonarr
+  api_key: !secret sonarr_api
+  host: !secret nas_hostname
+  port: 8989
+  urlbase: /sonarr
+  days: 7
+  monitored_conditions:
+    - upcoming
+    - status

@@ -25,9 +25,9 @@ switch.mediacenter:
 
 ## NAS volume used
 sensor.volume_used_volume_2:
-  friendly_name: SSD Volume Used
+  friendly_name: SSD 1TB Volume Used
 sensor.volume_used_volume_3:
-  friendly_name: HDD Volume Used
+  friendly_name: HDD 7TB Volume Used
   
 ## Fritz rename
 sensor.fritz_netmonitor:
