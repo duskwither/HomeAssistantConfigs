@@ -16,6 +16,13 @@
   unit_of_measurement: 'W'
   value_template: '{{ value_json.Power }}'
 
+#Computer Nils  
+- platform: mqtt
+  state_topic: "tele/NilsPC/ENERGY"
+  name: 'NilsPC'
+  unit_of_measurement: 'W'
+  value_template: '{{ value_json.Power }}'
+
 ## Mediacenter power usage #####################  
 - platform: mqtt
   state_topic: "tele/mediacenter/ENERGY"
@@ -77,6 +84,13 @@
       icon_template: mdi:upload-network
       unit_of_measurement: 'MB'
       value_template: "{{ (states.sensor.fritz_netmonitor.attributes.bytes_sent | float / 1000000) | round(1) }}"
+
+- platform: template      
+  sensors:
+    totalcomputerpower:
+     friendly_name: 'Computers Total'
+     unit_of_measurement: "W"
+     value_template: "{{ states.sensor.nilspc.state | float + states.sensor.computers.state | float | round(0) }}"
 
 ## Radarr ##      
 - platform: radarr

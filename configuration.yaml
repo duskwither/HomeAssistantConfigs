@@ -49,6 +49,10 @@ history:
 # View all events in a logbook
 logbook:
 
+recorder:
+  purge_interval: 2
+  purge_keep_days: 5
+
 # Enables a map showing the location of tracked devices
 map:
 
@@ -72,6 +76,32 @@ influxdb:
   host: !secret nas_hostname
   port: 8086
   database: home_assistant
+  include:
+    entities:
+      - binary_sensor.boxvanlokvennet
+      - binary_sensor.door_window_sensor_158d0001dbd397
+      - binary_sensor.motion_sensor_158d00016db6de
+      - device_tracker.phonenils
+      - device_tracker.phonetiia
+      - sensor.computers
+      - sensor.cpu_load_total
+      - sensor.downloaded
+      - sensor.fritz_netmonitor
+      - sensor.humidity_158d0001ab24f9
+      - sensor.livingroom_temperature
+      - sensor.mediacenter
+      - sensor.memory_usage_real
+      - sensor.meterkast
+      - sensor.nilspc
+      - sensor.temperature_158d0001ab24f9
+      - sensor.temperature_sdb
+      - sensor.temperature_sdc
+      - sensor.temperature_sdd
+      - sensor.temperature_sde
+      - sensor.uploaded
+      - sensor.uptime
+      - sensor.volume_used_volume_2
+      - sensor.volume_used_volume_3   
 
 ## MQTT Broker ##  
 mqtt:
@@ -96,8 +126,6 @@ group:
     entities:
       - group.woonkamer
       - group.meterkast
-      - group.sonarr
-      - group.radarr
   Nas_view:
     view: yes
     name: Synology
@@ -116,7 +144,7 @@ group:
       - switch.mediacenter
       - sensor.mediacenter
       - switch.computers
-      - sensor.computers
+      - sensor.totalcomputerpower
       - sensor.livingroom_temperature
   Meterkast:
     name: Meterkast
@@ -145,9 +173,3 @@ group:
       - sensor.externalip
       - sensor.downloaded
       - sensor.uploaded
-  Sonarr:
-    name: Upcoming Series
-      - sensor.sonarr_upcoming
-  Radarr:
-    name: Upcoming Movies
-      - sensor.radarr_upcoming

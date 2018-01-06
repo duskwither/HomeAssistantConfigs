@@ -1,17 +1,19 @@
 ## Mediacenter #################################
 - platform: mqtt
   name: Mediacenter
+  state_topic: "stat/mediacenter/POWER"
   command_topic: "cmnd/mediacenter/Power"
+  qos: 1
   payload_on: "ON"
   payload_off: "OFF"
   retain: true
-  state_topic: "stat/mediacenter/POWER"
 
 ## Computers ###################################  
 - platform: mqtt
   name: Computers
+  state_topic: "stat/computers/POWER"
   command_topic: "cmnd/computers/Power"
+  qos: 1
   payload_on: "ON"
   payload_off: "OFF"
   retain: true
-  state_topic: "stat/computers/POWER"

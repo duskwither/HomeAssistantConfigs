@@ -44,3 +44,5 @@ sensor.computers:
   icon: mdi:weather-lightning
 sensor.mediacenter:
   icon: mdi:weather-lightning
+sensor.totalcomputerpower:
+  icon: mdi:weather-lightning
